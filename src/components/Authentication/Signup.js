@@ -49,7 +49,7 @@ const Signup = () => {
         },
       };
       const { data } = await axios.post(
-        "/api/user",
+        "https://chatting-box-backend-1.onrender.com/api/user",
         {
           name,
           email,

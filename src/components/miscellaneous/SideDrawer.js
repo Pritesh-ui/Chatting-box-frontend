@@ -74,7 +74,10 @@ function SideDrawer() {
         },
       };
 
-      const { data } = await axios.get(`/api/user?search=${search}`, config);
+      const { data } = await axios.get(
+        `https://chatting-box-backend-1.onrender.com/api/user?search=${search}`,
+        config
+      );
 
       setLoading(false);
       setSearchResult(data);
@@ -101,7 +104,11 @@ function SideDrawer() {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { data } = await axios.post(`/api/chat`, { userId }, config);
+      const { data } = await axios.post(
+        `https://chatting-box-backend-1.onrender.com/api/chat`,
+        { userId },
+        config
+      );
       console.log("data", data);
 
       if (chats?.find((c) => c._id === data._id)) setChats([data, ...chats]);
@@ -170,12 +177,7 @@ function SideDrawer() {
           </Menu> */}
           <Menu>
             <MenuButton as={Button} bg="white" rightIcon={<ChevronDownIcon />}>
-              <Avatar
-                size="sm"
-                cursor="pointer"
-                name={user.name}
-              
-              />
+              <Avatar size="sm" cursor="pointer" name={user.name} />
             </MenuButton>
             <MenuList>
               <ProfileModal user={user}>

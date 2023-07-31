@@ -22,7 +22,10 @@ const MyChats = ({ fetchAgain }) => {
         },
       };
 
-      const { data } = await axios.get("/api/chat", config);
+      const { data } = await axios.get(
+        "https://chatting-box-backend-1.onrender.com/api/chat",
+        config
+      );
       setChats(data);
     } catch (error) {
       toast({
