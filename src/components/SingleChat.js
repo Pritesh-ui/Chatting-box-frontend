@@ -35,38 +35,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const { selectedChat, setSelectedChat, user, notification, setNotification } =
     ChatState();
 
-  const fetchMessages = async () => {
-    if (!selectedChat) return;
-
-    try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
-
-      setLoading(true);
-
-      const { data } = await axios.get(
-        `/api/message/${selectedChat._id}`,
-        config
-      );
-      setMessages(data);
-      setLoading(false);
-
-      socket.emit("join chat", selectedChat._id);
-    } catch (error) {
-      toast({
-        title: "Error Occured!",
-        description: "Failed to Load the Messages",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
-    }
-  };
-
   const sendMessage = async (event) => {
     if (event.key === "Enter" && newMessage) {
       try {
@@ -107,10 +75,41 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   }, [user]);
 
   useEffect(() => {
+    const fetchMessages = async () => {
+      if (!selectedChat) return;
+
+      try {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        };
+
+        setLoading(true);
+
+        const { data } = await axios.get(
+          `/api/message/${selectedChat._id}`,
+          config
+        );
+        setMessages(data);
+        setLoading(false);
+
+        socket.emit("join chat", selectedChat._id);
+      } catch (error) {
+        toast({
+          title: "Error Occured!",
+          description: "Failed to Load the Messages",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+      }
+    };
     fetchMessages();
 
     selectedChatCompare = selectedChat;
-  }, [selectedChat]);
+  }, [selectedChat, user, toast]);
 
   useEffect(() => {
     socket.on("message recieved", (newMessageRecieved) => {
