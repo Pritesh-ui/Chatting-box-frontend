@@ -8,7 +8,8 @@ import { useState } from "react";
 import { useHistory } from "react-router";
 
 const Signup = () => {
-  const [show, setShow] = useState(false);
+  // const [show, setShow] = useState(false);
+  let show = false;
 
   const toast = useToast();
   const history = useHistory();

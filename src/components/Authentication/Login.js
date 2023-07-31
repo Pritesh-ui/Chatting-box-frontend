@@ -9,7 +9,8 @@ import { useHistory } from "react-router-dom";
 import { ChatState } from "../../Context/ChatProvider";
 
 const Login = () => {
-  const [show, setShow] = useState(false);
+  // const [show, setShow] = useState(false);
+  let show = false;
   // const handleClick = () => setShow(!show);
   const toast = useToast();
   const [email, setEmail] = useState();
